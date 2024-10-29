@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
 	addStudent,
 	updateStudent,
-	setCurrentStudent,
 	clearCurrentStudent,
 } from "../redux/studentSlice";
 
@@ -38,7 +37,7 @@ const StudentForm = () => {
 			dispatch(updateStudent(formData));
 			dispatch(clearCurrentStudent());
 		} else {
-			dispatch(addStudent({ ...formData, id: Date.now().toString() }));
+			dispatch(addStudent({ ...formData }));
 		}
 		setFormData({ id: "", name: "", phone: "", email: "" });
 	};

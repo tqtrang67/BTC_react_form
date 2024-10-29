@@ -3,9 +3,15 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteStudent, setCurrentStudent } from "../redux/studentSlice";
 
-const StudentTable = () => {
+const StudentTable = ({ search }) => {
 	const dispatch = useDispatch();
 	const studentList = useSelector((state) => state.students.studentList);
+
+	const filteredStudents = studentList.filter(
+		(student) =>
+			student.name.toLowerCase().includes(search.toLowerCase()) ||
+			student.id.toString().includes(search)
+	);
 
 	const handleEdit = (student) => {
 		dispatch(setCurrentStudent(student));
@@ -27,7 +33,7 @@ const StudentTable = () => {
 				</tr>
 			</thead>
 			<tbody>
-				{studentList.map((student) => (
+				{filteredStudents.map((student) => (
 					<tr key={student.id}>
 						<td>{student.id}</td>
 						<td>{student.name}</td>
